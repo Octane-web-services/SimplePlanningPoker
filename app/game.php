@@ -98,6 +98,7 @@ if(isset($response['error']) && $response['error'] == 'Session not found'){
         <h2>Last vote: <?php echo $response['Last Vote']; ?></h2>
         <h2>Players voted: <?php echo $response['Players voted']; ?></h2>
     </div>
+    <progress value="<?php echo explode('/', $response['Players voted'])[0]; ?>" max="<?php echo explode('/', $response['Players voted'])[1]; ?>"></progress>
     <form method="post" class="voting-form">
         <input type="hidden" name="action" value="vote">
         <select name="vote">
@@ -123,6 +124,10 @@ if(isset($response['error']) && $response['error'] == 'Session not found'){
                     const response = JSON.parse(http.responseText);
                     document.querySelectorAll('h2')[1].innerText = 'Last vote: ' + response['Last Vote'];
                     document.querySelectorAll('h2')[2].innerText = 'Players voted: ' + response['Players voted'];
+                    $progress = response['Players voted'].split('/')[0];
+                    $max = response['Players voted'].split('/')[1];
+                    document.querySelector('progress').setAttribute('value', $progress);
+                    document.querySelector('progress').setAttribute('max', $max);
                 }
             }
         }, 2000);
