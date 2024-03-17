@@ -1,0 +1,14 @@
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+  php-server:
+    ports:
+      - "80:80"
+    image: php:7.4
+    working_dir: /var/www/html
+    command: php -S 0.0.0.0:80
+    volumes:
+      - ./app:/var/www/html
